@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 """
+This is a place for utility functions that dont really belong in any classes 
 """
 
 import numpy.random as rnd
