@@ -1,22 +1,34 @@
-from tiles3 import tiles, IHT, tileswrap
+import numpy as np
 
 
 '''
-This is where I will be getting my hands dirty with function approximation things for RL
+This is where I will be making the stochastic gridworld environement. 
+
+Environment mechanics: 
+- start position -- this could be hardcoded but may also be worth looking into the idea of having the starting positions also stochastic
+- goal position -- there will be many goals that are fairly easy to find, but they are not always there. They will stochastically happen. 
+
+
 '''
+current_state = None
+def env_init():
 
 
+    return
 
-internal_hash = IHT(5)
+def env_start():
 
-print(internal_hash.count())
+    return 
 
-test=tiles(internal_hash,4,[20,20],[5,4])
-print(test)
+def env_step():
 
 
-test2 = tiles(internal_hash,4,[20,20],[1,4])
-print('test2',test2)
+    results = {'reward': ,'state': , 'isTerminal': }
+    return results 
 
-test3 = tiles(internal_hash, 4, [5,5])
-print(test3)
+def env_cleanup():
+
+    return 
+
+def env_message(in_message):
+    return ""
