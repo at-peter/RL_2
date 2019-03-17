@@ -12,16 +12,29 @@ Environment mechanics:
 '''
 current_state = None
 def env_init():
+global current_state
 
-
+gridworldMap = np.arrary([5,5]) 
+    
     return
 
 def env_start():
 
     return 
 
-def env_step():
+def env_step(action):
 
+    # action logic should go here 
+    if action = 1:
+
+    elif action = 2:
+
+    elif action = 3:
+
+    elif action = 4:
+    
+    else: 
+        print('')
 
     results = {'reward': ,'state': , 'isTerminal': }
     return results 
