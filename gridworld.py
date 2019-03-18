@@ -78,8 +78,14 @@ def env_step(action):
 
     # WALL PHASE: 
     # TODO: this needs fixing, atm it needs to take action into account 
-    # if new_state[1] == 0 or new_state[0] == 0 or new_state[1] == 4 or new_state[0] == 4:
-    #     new_state = current_state
+    if new_state[1] == 0
+    
+    elif new_state[0] == 0 
+    
+    elif new_state[1] == 4 
+    
+     elif new_state[0] == 4:
+         new_state = current_state
 
     #UPDATE PHASE: 
     current_state = new_state 
