@@ -3,16 +3,27 @@ This is my debugging file:"
 
 
 '''
-
+from rl_glue import*
+RLGlue("gridworld","basicAgent")
 import gridworld as grid 
 import basicAgent as agent
+import numpy as np 
+import random 
+Q = np.zeros([5,5,4])
 
-grid.env_init()
-print('Grid initialized ')
-agent.agent_init()
-print('Agent initialized ')
-start = grid.env_start()
-print('Start location: ',start)
-action = agent.agent_start(start)
-result = grid.env_step(action)
-print('Action:', action,'\nResult: ', result)
+reward = 5
+gamma = 0.1
+alpha = 0.1
+epsilon = 50
+
+num_episodes = 5
+max_steps = 100000
+num_runs = 1
+
+for run in range(num_runs):
+    counter = 0 
+    RL_init()
+    print('\n')
+    for episode in range(num_episodes):
+        RL_episode(max_steps)
+    RL_cleanup()

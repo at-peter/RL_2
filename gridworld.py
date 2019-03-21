@@ -18,7 +18,7 @@ R_2 = None
 def env_init():
     global current_state, terminal_1,terminal_2
     
-    terminal_1 = [0,4]
+    terminal_1 = [4,0]
     terminal_2 = [4,4]
     
     
@@ -78,14 +78,15 @@ def env_step(action):
 
     # WALL PHASE: 
     # TODO: this needs fixing, atm it needs to take action into account 
-    if new_state[1] == 0
-    
-    elif new_state[0] == 0 
-    
-    elif new_state[1] == 4 
-    
-     elif new_state[0] == 4:
-         new_state = current_state
+    if new_state[1] == -1:
+        new_state[1] = 0
+    elif new_state[0] == -1: 
+        new_state[0] = 0
+    elif new_state[1] == 5: 
+        new_state[1] = 4
+    elif new_state[0] == 5:
+        new_state[0] = 4
+    #TODO: check the corner cases. I may need to turn theses into consecutive if statements. 
 
     #UPDATE PHASE: 
     current_state = new_state 

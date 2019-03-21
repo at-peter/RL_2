@@ -4,7 +4,7 @@
 This is the file that will be run for the gridworld experiences 
 
 This currently is just a skeleton 
-~20$ 
+
 '''
 
 from rl_glue import* 
