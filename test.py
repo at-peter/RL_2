@@ -4,7 +4,7 @@ This is my debugging file:"
 
 '''
 from rl_glue import*
-RLGlue("gridworld","basicAgent")
+RLGlue("gridworld","qAgent")
 import gridworld as grid 
 import basicAgent as agent
 import numpy as np 
