@@ -6,7 +6,7 @@ This is my debugging file:"
 from rl_glue import*
 RLGlue("gridworld","qAgent")
 import gridworld as grid 
-import basicAgent as agent
+import qAgent as agent
 import numpy as np 
 import random 
 Q = np.zeros([5,5,4])
@@ -18,7 +18,7 @@ epsilon = 50
 
 num_episodes = 5
 max_steps = 100000
-num_runs = 1
+num_runs = 2
 
 for run in range(num_runs):
     counter = 0 

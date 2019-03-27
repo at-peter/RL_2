@@ -21,7 +21,7 @@ def agent_init():
 
 def agent_start(state):
     global Q, last_state, last_action
-    action = random.randint(1,4)
+    action = random.randint(0,3)
     last_action = action
     last_state = state
     return action 
@@ -36,11 +36,11 @@ def agent_step(reward, state):
     gen = random.randint(0,100)
     
     if gen <= 10: 
-        action = random.randint(1,4) # Random policy   
+        action = random.randint(0,3) # Random policy   
         print("Random action")
     else: 
         print("Q action")
-        action = np.argmax(Q[0,1,:]) + 1 #TODO: the problem is that argmax gives [0,3] and I want [1,4]
+        action = np.argmax(Q[0,1,:])  #TODO: the problem is that argmax gives [0,3] and I want [1,4]
         
     last_action = action 
     last_state = state 
@@ -49,12 +49,13 @@ def agent_step(reward, state):
 
 def agent_end(reward):
     global Q, last_state, last_action,alpha, gamma
-    Q[last_state[0],last_state[1],last_action] = Q[last_state[0],last_state[1],last_action] + alpha*(reward)
+    Q[last_state[0],last_state[1],last_action] = Q[last_state[0],last_state[1],last_action] + alpha*(reward) #TODO: The problem is here.
     print("termination acheived", reward)
     return 
 
 def agent_cleanup():
-
+    print('value function:' ,Q)
+    # print('Goal 2 value function:', Q[4,4])
     return 
 
 def agent_message(in_message):

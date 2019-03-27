@@ -53,22 +53,22 @@ def env_step(action):
     
     '''
     # ACTION PHASE: 
-    if action == 1: 
+    if action == 0: 
         # up
         new_state[0] = the_state[0]
         new_state[1] = the_state[1] - 1 
     
-    elif action == 2:
+    elif action == 1:
         # right
         new_state[0] = current_state[0] + 1 
         new_state[1] = current_state[1] 
     
-    elif action == 3:
+    elif action == 2:
         # down 
         new_state[0] = current_state[0]
         new_state[1] = current_state[1] + 1  
     
-    elif action == 4:
+    elif action == 3:
         # left  
         new_state[0] = current_state[0] - 1
         new_state[1] = current_state[1] 
