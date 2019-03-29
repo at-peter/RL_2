@@ -77,7 +77,7 @@ def env_step(action):
         print('Not a valid action')
 
     # WALL PHASE: 
-    # TODO: this needs fixing, atm it needs to take action into account 
+    
     if new_state[1] == -1:
         new_state[1] = 0
     elif new_state[0] == -1: 
