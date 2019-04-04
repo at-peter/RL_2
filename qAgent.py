@@ -31,7 +31,7 @@ def agent_start(state):
 
 
 def agent_step(reward, state):
-    global Q, last_state, last_action, alpha, gamma 
+    global Q, last_state, last_action, alpha, gamma , epsilon
     # update q based on previous action
     # td_err = alpha*(reward + gamma* np.amax(Q[state[0], state[1], :]))
     # Q[last_state[0], last_state[1], last_action] = Q[last_state[0], last_state[1], last_action] + td_err
@@ -42,17 +42,16 @@ def agent_step(reward, state):
     # epsilon greedy policy: 
     gen = random.randint(0, 100)
     
-    if gen <= 10: 
+    if gen <= (epsilon*10): 
         action = random.randint(0, 1) # Random policy   
-        # print("Random action")
+        print("Random action", action)
     else: 
-        # print("Q action")
         # action = np.argmax(Q[state[0], state[1], :])  #TODO: need to use numpy.argwhere here. This is to get rid of the bias that is created by using argmax()
         best_option = np.argwhere(Q == np.amax(Q[state,:]))
         num_options = len(best_option)
         best_option = (random.choice(best_option))
         action = best_option[1]
-    
+        print("Q action", action)
     last_action = action 
     last_state = state 
     # print('Q matrix:', Q) 
@@ -76,3 +75,5 @@ def agent_cleanup():
 def agent_message(in_message):
 
     return  ""
+
+
