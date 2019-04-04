@@ -154,27 +154,29 @@ num_runs = 1
 max_steps = 100000
 num_steps = 0
 num_episodes = 10
-line.env_init()
-agent.agent_init()
 
-for episode in range(num_episodes):
-    is_terminal = False
-    start_state = line.env_start()
-    l_action = agent.agent_start(start_state)
+for run in range()
+    line.env_init()
+    agent.agent_init()
 
-    print(l_action)
-    while not is_terminal:
-        result = line.env_step(l_action)
-        is_terminal = result['isTerminal']
-        
-        if result['isTerminal'] is False: 
-            l_action = agent.agent_step(result['reward'], result['state'])
-            num_steps += 1 
-        else:
-            agent.agent_step(result['reward'],result['state'])
-            agent.agent_end(result['reward'])
-            break
-    episode += 1 
+    for episode in range(num_episodes):
+        is_terminal = False
+        start_state = line.env_start()
+        l_action = agent.agent_start(start_state)
+
+        print(l_action)
+        while not is_terminal:
+            result = line.env_step(l_action)
+            is_terminal = result['isTerminal']
+            
+            if result['isTerminal'] is False: 
+                l_action = agent.agent_step(result['reward'], result['state'])
+                num_steps += 1 
+            else:
+                agent.agent_step(result['reward'],result['state'])
+                agent.agent_end(result['reward'])
+                break
+        episode += 1 
 
 
 
