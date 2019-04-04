@@ -10,7 +10,7 @@ Q = None
 last_state = None
 last_action = None 
 alpha = 0.1
-gamma = 0.1
+gamma = 0.9
 epsilon = 0.1
 
 def agent_init():
@@ -24,7 +24,7 @@ def agent_init():
 def agent_start(state):
     global Q, last_state, last_action
     # action = random.randint(0,3)
-    action = random.randint(0,2)
+    action = random.randint(0,1)
     last_action = action
     last_state = state
     return action 
@@ -36,33 +36,36 @@ def agent_step(reward, state):
     # td_err = alpha*(reward + gamma* np.amax(Q[state[0], state[1], :]))
     # Q[last_state[0], last_state[1], last_action] = Q[last_state[0], last_state[1], last_action] + td_err
     
-    tr_err  = alpha*(reward + gamma*np.amax(Q[last_state,:] - Q[last_state, last_action]) 
+    td_err  = alpha*(reward + gamma*np.amax(Q[state,:] - Q[last_state, last_action])) 
     Q[last_state, last_action] = Q[last_state, last_action] + td_err
     # choose action based on policy 
     # epsilon greedy policy: 
     gen = random.randint(0, 100)
     
     if gen <= 10: 
-        action = random.randint(0, 2) # Random policy   
+        action = random.randint(0, 1) # Random policy   
         # print("Random action")
     else: 
         # print("Q action")
         # action = np.argmax(Q[state[0], state[1], :])  #TODO: need to use numpy.argwhere here. This is to get rid of the bias that is created by using argmax()
-        best_option = np.argwhere(values == np.amax(Q[state,:]))
+        best_option = np.argwhere(Q == np.amax(Q[state,:]))
         num_options = len(best_option)
-        best_option = int(random.choice(best_option))
-        action = best_option
+        best_option = (random.choice(best_option))
+        action = best_option[1]
     
     last_action = action 
     last_state = state 
-    print('Q matrix:', Q) 
+    # print('Q matrix:', Q) 
     return action 
 
 def agent_end(reward):
-    global Q, last_state, last_action,alpha, gamma
+    global Q, last_state, last_action
     # Q[last_state[0], last_state[1], last_action] = Q[last_state[0], last_state[1], last_action] + alpha*(reward) #TODO: m
-    Q[last_state, last_action] = Q[]
+    
+    Q[0, last_action] = Q[0, last_action] + reward
+    
     print("termination acheived, Reward received:", reward, '\n', 'termination state:', last_state )
+    print('Q matrix:', Q)
     return 
 
 def agent_cleanup():

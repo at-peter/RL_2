@@ -10,7 +10,7 @@ terminal_reward = None
 
 
 def env_init():
-    global terminal_statem terminal_reward
+    global terminal_state, terminal_reward
     terminal_reward = 1 
     terminal_state = 0
     return 
@@ -29,19 +29,24 @@ def env_step(action):
     Reward is 0 on all steps until termination where reward is 1 
     '''
     # action selection: 
-    if action = 0: 
+    if action == 0: 
         # go left: 
         current_state = current_state - 1 
-    if action = 1: 
+    if action == 1: 
         # go right
         current_state = current_state + 1 
         
+    #TODO: need to make the wall code:
+    if current_state == 5:
+        current_state = 4
+
     reward = 0 
     is_terminal = False
     # terminal condition: 
     if current_state == 0: 
         is_terminal = True
         reward = 1 
+        current_state = 0
 
     results = {'reward': reward , 'state': current_state , 'isTerminal': is_terminal } # TODO: put values here 
     return results 
