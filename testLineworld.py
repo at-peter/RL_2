@@ -171,6 +171,7 @@ for episode in range(num_episodes):
             l_action = agent.agent_step(result['reward'], result['state'])
             num_steps += 1 
         else:
+            # This is the missing part, agent end needs to also update the previous state. 
             agent.agent_step(result['reward'],result['state'])
             agent.agent_end(result['reward'])
             break
