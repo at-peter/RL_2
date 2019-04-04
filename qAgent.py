@@ -46,7 +46,6 @@ def agent_step(reward, state):
         action = random.randint(0, 1) # Random policy   
         print("Random action", action)
     else: 
-        # action = np.argmax(Q[state[0], state[1], :])  #TODO: need to use numpy.argwhere here. This is to get rid of the bias that is created by using argmax()
         best_option = np.argwhere(Q == np.amax(Q[state,:]))
         num_options = len(best_option)
         best_option = (random.choice(best_option))
@@ -61,6 +60,7 @@ def agent_end(reward):
     global Q, last_state, last_action
     # Q[last_state[0], last_state[1], last_action] = Q[last_state[0], last_state[1], last_action] + alpha*(reward) #TODO: m
     
+    #TODO: There needs to be an update for the previous state value here, exactly like in the step. 
     Q[0, last_action] = Q[0, last_action] + reward
     
     print("termination acheived, Reward received:", reward, '\n', 'termination state:', last_state )
