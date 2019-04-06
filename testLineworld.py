@@ -1,6 +1,6 @@
 from rl_glue import*
 
-RLGlue("lineworld","qAgent")
+# RLGlue("lineworld","qAgent")
 import lineworld as grid 
 import qAgent as agent
 import lineworld as line 
@@ -66,7 +66,7 @@ start = grid.env_start()
 '''
 RL glue testing. 
 '''
-num_episodes = 2
+num_episodes = 3
 max_steps = 100000
 num_runs = 1
 
@@ -153,8 +153,8 @@ num_runs = 1
 
 max_steps = 100000
 num_steps = 0
-num_episodes = 10
-num_runs = 2
+num_episodes = 3
+num_runs = 3
 for run in range(num_runs):
     line.env_init()
     agent.agent_init()

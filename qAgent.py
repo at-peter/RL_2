@@ -46,11 +46,12 @@ def agent_step(reward, state):
         action = random.randint(0, 1) # Random policy   
         print("Random action", action)
     else: 
-        # action = np.argmax(Q[state[0], state[1], :])  #TODO: need to use numpy.argwhere here. This is to get rid of the bias that is created by using argmax()
+        # action = np.argmax(Q[state[0], state[1], :])  #TODO: This is still not giving the right value all the time. 
+        # TODO: Need to restric the best option to the current state, Can't select the action from the pool of all the states. 
         best_option = np.argwhere(Q == np.amax(Q[state,:]))
         num_options = len(best_option)
-        best_option = (random.choice(best_option))
-        action = best_option[1]
+        best_option = (random.choice(best_option[:][state,:]))
+        action = best_option
         print("Q action", action)
     prev_action = action 
     prev_state = state 
@@ -77,24 +78,27 @@ def agent_message(in_message):
     return  ""
 
 
-max_steps = 100000
-num_steps = 0
-line.env_init()
-agent.agent_init()
-is_terminal = False
-start_state = line.env_start()
-l_action = agent.agent_start(start_state)
-print(l_action)
-while not is_terminal:
-    result = line.env_step(l_action)
-    is_terminal = result['isTerminal']
+'''
+TODO: WHY IS THIS STILL HERE 
+'''
+# max_steps = 100000
+# num_steps = 0
+# line.env_init()
+# agent.agent_init()
+# is_terminal = False
+# start_state = line.env_start()
+# l_action = agent.agent_start(start_state)
+# print(l_action)
+# while not is_terminal:
+#     result = line.env_step(l_action)
+#     is_terminal = result['isTerminal']
     
-    if result['isTerminal'] is False: 
-        l_action = agent.agent_step(result['reward'], result['state'])
-        num_steps += 1 
-    else:
-        agent.agent_step(result['reward'],result['state'])
-        agent.agent_end(result['reward'])
-        break
+#     if result['isTerminal'] is False: 
+#         l_action = agent.agent_step(result['reward'], result['state'])
+#         num_steps += 1 
+#     else:
+#         agent.agent_step(result['reward'],result['state'])
+#         agent.agent_end(result['reward'])
+#         break
         
     
