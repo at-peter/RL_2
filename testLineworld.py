@@ -154,11 +154,11 @@ num_runs = 1
 max_steps = 100000
 num_steps = 0
 num_episodes = 10
-
-for run in range()
+num_runs = 2
+for run in range(num_runs):
     line.env_init()
     agent.agent_init()
-
+    print('Run:', run)
     for episode in range(num_episodes):
         is_terminal = False
         start_state = line.env_start()

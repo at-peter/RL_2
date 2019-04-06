@@ -22,7 +22,7 @@ def env_start():
     return start_state 
 
 def env_step(action):
-    global current_state
+    global current_state, terminal_reward, terminal_state
     '''
     line world: 
     straight line with termination on the end. 
@@ -45,8 +45,8 @@ def env_step(action):
     # terminal condition: 
     if current_state == 0: 
         is_terminal = True
-        reward = 1 
-        current_state = 0
+        reward = terminal_reward
+        current_state = terminal_state
 
     results = {'reward': reward , 'state': current_state , 'isTerminal': is_terminal } # TODO: put values here 
     return results 
