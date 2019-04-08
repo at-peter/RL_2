@@ -48,10 +48,10 @@ def agent_step(reward, state):
     else: 
         # action = np.argmax(Q[state[0], state[1], :])  #TODO: This is still not giving the right value all the time. 
         # TODO: Need to restric the best option to the current state, Can't select the action from the pool of all the states. 
-        best_option = np.argwhere(Q == np.amax(Q[state,:]))
+        best_option = np.argwhere(Q[state,:] == np.amax(Q[state,:]))
         num_options = len(best_option)
-        best_option = (random.choice(best_option[:][state,:]))
-        action = best_option
+        best_option = (random.choice(best_option))
+        action = best_option[0]
         print("Q action", action)
     prev_action = action 
     prev_state = state 
@@ -62,6 +62,9 @@ def agent_end(reward):
     global Q, prev_state, prev_action
     # Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + alpha*(reward) #TODO: m
     
+    td_err  = alpha*(reward + gamma*np.amax(Q[0,:] - Q[prev_state, prev_action])) 
+    Q[prev_state, prev_action] = Q[prev_state, prev_action] + td_err
+
     Q[0, prev_action] = Q[0, prev_action] + reward
     
     print("termination acheived, Reward received:", reward, '\n', 'termination state:', prev_state )

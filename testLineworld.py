@@ -173,7 +173,7 @@ for run in range(num_runs):
                 l_action = agent.agent_step(result['reward'], result['state'])
                 num_steps += 1 
             else:
-                agent.agent_step(result['reward'],result['state'])
+                # agent.agent_step(result['reward'],result['state'])
                 agent.agent_end(result['reward'])
                 break
         episode += 1 
