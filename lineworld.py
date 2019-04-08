@@ -46,7 +46,7 @@ def env_step(action):
     if current_state == 0: 
         is_terminal = True
         reward = terminal_reward
-        current_state = terminal_state
+        current_state = terminal_state 
 
     results = {'reward': reward , 'state': current_state , 'isTerminal': is_terminal } 
     return results 

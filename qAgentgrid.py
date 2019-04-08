@@ -15,16 +15,13 @@ epsilon = 0.1
 
 def agent_init():
     global Q
-    # Q = np.zeros([5,5,4])
-    Q = np.zeros([5,2])
-
+    Q = np.zeros([5,5,4])
     return 
 
 
 def agent_start(state):
     global Q, prev_state, prev_action
-    # action = random.randint(0,3)
-    action = random.randint(0,1) # This is what causes the single action to the end. 
+    action = random.randint(0,3) 
     prev_action = action
     prev_state = state
     return action 
@@ -44,7 +41,8 @@ def agent_step(reward, state):
     gen = random.randint(0, 100)
     
     if gen <= (epsilon*10): 
-        action = random.randint(0, 1) # Random policy   
+        action = random.randint(0,3)
+        # Random policy   
         print("Random action", action)
     else: 
         #TODO: This is still not giving the right value all the time. 
