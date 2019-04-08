@@ -36,7 +36,7 @@ def env_step(action):
         # go right
         current_state = current_state + 1 
         
-    #TODO: need to make the wall code:
+    # Wall check
     if current_state == 5:
         current_state = 4
 
@@ -48,7 +48,7 @@ def env_step(action):
         reward = terminal_reward
         current_state = terminal_state
 
-    results = {'reward': reward , 'state': current_state , 'isTerminal': is_terminal } # TODO: put values here 
+    results = {'reward': reward , 'state': current_state , 'isTerminal': is_terminal } 
     return results 
 
 def env_cleanup():

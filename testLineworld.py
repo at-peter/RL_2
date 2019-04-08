@@ -151,19 +151,20 @@ num_runs = 1
 #     is_terminal = result['isTerminal']
 
 
-max_steps = 100000
-num_steps = 0
+max_steps = 100
 num_episodes = 3
 num_runs = 3
 for run in range(num_runs):
     line.env_init()
     agent.agent_init()
     print('Run:', run)
+    
     for episode in range(num_episodes):
         is_terminal = False
         start_state = line.env_start()
         l_action = agent.agent_start(start_state)
-
+        num_steps = 0  
+        print('Episode:', episode) 
         print(l_action)
         while not is_terminal:
             result = line.env_step(l_action)
