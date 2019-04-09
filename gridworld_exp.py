@@ -12,11 +12,12 @@ import qAgentgrid as agent
 import gridworld as grid
 import numpy as np 
 import random 
+import utils
 
 
 max_steps = 1000
-num_episodes = 10
-num_runs = 10
+num_episodes = 3
+num_runs = 1
 for run in range(num_runs):
     grid.env_init()
     agent.agent_init()
@@ -41,3 +42,6 @@ for run in range(num_runs):
                 agent.agent_end(result['reward'])
                 break
         episode += 1 
+
+utils.heatmap(agent.Q, 1 )
+
