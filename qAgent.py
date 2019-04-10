@@ -33,11 +33,12 @@ def agent_start(state):
 def agent_step(reward, state):
     global Q, prev_state, prev_action, alpha, gamma , epsilon
     # update q based on previous action
-    # td_err = alpha*(reward + gamma* np.amax(Q[state[0], state[1], :]))
-    # Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + td_err
+    td_err = alpha*(reward + gamma* np.amax(Q[state[0], state[1], :]))
+    Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + td_err
 
-    td_err  = alpha*(reward + gamma*np.amax(Q[state,:] - Q[prev_state, prev_action])) 
-    Q[prev_state, prev_action] = Q[prev_state, prev_action] + td_err
+    # 
+    # td_err  = alpha*(reward + gamma*np.amax(Q[state,:] - Q[prev_state, prev_action])) 
+    # Q[prev_state, prev_action] = Q[prev_state, prev_action] + td_err
     
     # choose action based on policy 
     # epsilon greedy policy: 

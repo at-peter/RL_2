@@ -15,9 +15,10 @@ import random
 import utils
 
 
-max_steps = 1000
+max_steps = 100
 num_episodes = 3
 num_runs = 1
+avg_reward = np.zeros(num_episodes)
 for run in range(num_runs):
     grid.env_init()
     agent.agent_init()
@@ -30,10 +31,12 @@ for run in range(num_runs):
         num_steps = 0  
         print('Episode:', episode) 
         print(l_action)
+        counter = 0
+    
         while not is_terminal:
             result = grid.env_step(l_action)
             is_terminal = result['isTerminal']
-            
+            counter += 1 
             if result['isTerminal'] is False: 
                 l_action = agent.agent_step(result['reward'], result['state'])
                 num_steps += 1 
@@ -41,7 +44,15 @@ for run in range(num_runs):
                 # agent.agent_step(result['reward'],result['state'])
                 agent.agent_end(result['reward'])
                 break
+            if counter is max_steps:
+                print('Max steps achieved')
+                # TODO: For some reason this happens alot. 
+                break
+        avg_reward[episode] = result['reward']/counter
+        utils.heatmap(agent.Q, episode)
+        print(counter)
         episode += 1 
-
-utils.heatmap(agent.Q, 1 )
-
+# print(avg_reward)
+utils.avg_reward(avg_reward)
+utils.pltshow()
+# utils.heatmap(agent.Q)

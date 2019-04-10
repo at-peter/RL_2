@@ -28,8 +28,8 @@ def env_start():
     # set the starting location, get the rewards 
     global R_1, R_2 , current_state
     start_state = [0,2]
-    R_1 = np.random.normal(4,1)
-    R_2 = np.random.normal(7,2)
+    R_1 = max(min(np.random.normal(4,1),0.1),-0.1)
+    R_2 = max(min(np.random.normal(7,2),15), -15)
     current_state = start_state 
     return start_state
 
