@@ -18,18 +18,19 @@ R_2 = None
 def env_init():
     global current_state, terminal_1,terminal_2
     
-    terminal_1 = [3,1]
-    terminal_2 = [4,4]
-    
+    terminal_1 = [7,3]
+    terminal_2 = [9,9]
+    # terminal_1 = [9,9]
     
     return
 
 def env_start():
     # set the starting location, get the rewards 
     global R_1, R_2 , current_state
-    start_state = [0,2]
-    R_1 = max(min(np.random.normal(4,1),0.1),-0.1)
-    R_2 = max(min(np.random.normal(7,2),15), -15)
+    start_state = [0,0]
+    # R_1 = max(min(np.random.normal(4,1),0.1),-0.1)
+    R_2 = max(min(np.random.normal(3, 2), 7), 0)
+    R_1 = 1
     current_state = start_state 
     return start_state
 
@@ -82,10 +83,10 @@ def env_step(action):
         new_state[1] = 0
     elif new_state[0] == -1: 
         new_state[0] = 0
-    elif new_state[1] == 5: 
-        new_state[1] = 4
-    elif new_state[0] == 5:
-        new_state[0] = 4
+    elif new_state[1] == 10: 
+        new_state[1] = 9
+    elif new_state[0] == 10:
+        new_state[0] = 9
     #TODO: check the corner cases. I may need to turn theses into consecutive if statements. 
 
     #UPDATE PHASE: 

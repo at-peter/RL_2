@@ -15,7 +15,7 @@ epsilon = 0.1
 
 def agent_init():
     global Q
-    Q = np.zeros([5,5,4])
+    Q = np.zeros([10,10,4])
     return 
 
 
@@ -32,7 +32,7 @@ def agent_step(reward, state):
     # update q based on previous action
     td_err = alpha*(reward + gamma* np.amax(Q[state[0], state[1], :]) - Q[prev_state[0],prev_state[1],prev_action])
     Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + td_err
-
+    print(td_err)
    
     # choose action based on policy 
     # epsilon greedy policy: 
@@ -41,7 +41,7 @@ def agent_step(reward, state):
     if gen <= (epsilon*10): 
         action = random.randint(0,3)
         # Random policy   
-        #print("Random action", action)
+        # print("Random action", action)
     else: 
         # Action selection 
         best_option = np.argwhere(Q[state[0],state[1],:] == np.amax(Q[state[0],state[1],:]))
@@ -77,8 +77,8 @@ def agent_end(reward):
     Q[term_state[0], term_state[1], prev_action] = Q[term_state[0], term_state[1], prev_action] + reward
     
     
-    print("termination acheived, Reward received:", reward, '\n', 'termination state:', prev_state )
-    print('Q matrix:', Q)
+    # print("termination acheived, Reward received:", reward, '\n', 'termination state:', prev_state )
+    # print('Q matrix:', Q)
     return 
 
 def agent_cleanup():
@@ -95,5 +95,10 @@ def predictive_novelty():
 
     '''
     This function will implement predictive novelty motivation as described in P.Y.Oudeye
+    Variables needed: 
+    previous estimate 
+      
+    
     '''
+    
     return
