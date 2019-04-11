@@ -18,7 +18,7 @@ R_2 = None
 def env_init():
     global current_state, terminal_1,terminal_2
     
-    terminal_1 = [4,0]
+    terminal_1 = [3,1]
     terminal_2 = [4,4]
     
     

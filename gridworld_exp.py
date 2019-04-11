@@ -16,7 +16,7 @@ import utils
 
 
 max_steps = 100
-num_episodes = 3
+num_episodes = 100
 num_runs = 1
 avg_reward = np.zeros(num_episodes)
 for run in range(num_runs):
@@ -44,14 +44,15 @@ for run in range(num_runs):
                 # agent.agent_step(result['reward'],result['state'])
                 agent.agent_end(result['reward'])
                 break
-            if counter is max_steps:
-                print('Max steps achieved')
-                # TODO: For some reason this happens alot. 
-                break
+            # if counter is max_steps:
+            #     print('Max steps achieved')
+            #     # TODO: For some reason this happens alot. 
+            #     break
         avg_reward[episode] = result['reward']/counter
-        utils.heatmap(agent.Q, episode)
+        # utils.heatmap(agent.Q, episode)
         print(counter)
-        episode += 1 
+        episode += 1
+    utils.heatmap(agent.Q,run) 
 # print(avg_reward)
 utils.avg_reward(avg_reward)
 utils.pltshow()

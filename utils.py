@@ -19,7 +19,7 @@ def heatmap(data, episode):
     fig = plt.figure(episode)
     for action in range(1,5):
         plt.subplot(2,2,action)
-        ax = sns.heatmap(data[:,:,action-1], annot = True)
+        ax = sns.heatmap(data[:,:,action-1], annot = True, cmap='Blues')
         plt.title("Action:" + str(action))
     # ax.set_title('State action values for action', action)
     

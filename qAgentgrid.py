@@ -5,7 +5,7 @@ This is the basic q leaning agent
 Initially I will set this random action 
 
 '''
-random.seed(5)
+random.seed(4)
 Q = None
 prev_state = None
 prev_action = None 
@@ -30,7 +30,7 @@ def agent_start(state):
 def agent_step(reward, state):
     global Q, prev_state, prev_action, alpha, gamma , epsilon
     # update q based on previous action
-    td_err = alpha*(reward + gamma* np.amax(Q[state[0], state[1], :]))
+    td_err = alpha*(reward + gamma* np.amax(Q[state[0], state[1], :]) - Q[prev_state[0],prev_state[1],prev_action])
     Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + td_err
 
    
@@ -44,7 +44,7 @@ def agent_step(reward, state):
         #print("Random action", action)
     else: 
         # Action selection 
-        best_option = np.argwhere(Q[state,:] == np.amax(Q[state,:]))
+        best_option = np.argwhere(Q[state[0],state[1],:] == np.amax(Q[state[0],state[1],:]))
         num_options = len(best_option)
         best_option = (random.choice(best_option))
         action = best_option[0]
@@ -56,11 +56,25 @@ def agent_step(reward, state):
 
 def agent_end(reward):
     global Q, prev_state, prev_action
+    term_state = [0,0]
     td_err = alpha*(reward + gamma* np.amax(Q[prev_state[0], prev_state[1], :]))
     Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + td_err
     
+    if prev_action == 0:
+        term_state[0] = prev_state[0]
+        term_state[1] = prev_state[1] - 1 
+    elif prev_action == 1: 
+        term_state[0] = prev_state[0] + 1
+        term_state[1] = prev_state[1]
+    elif prev_action == 2: 
+        term_state[0] = prev_state[0]
+        term_state[1] = prev_state[1] + 1
+    elif prev_action == 3: 
+        term_state[0] = prev_state[0] - 1
+        term_state[1] = prev_state[1]
     #TODO: Need to have this line be able to accept multiple terminal states
-    Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + reward
+    
+    Q[term_state[0], term_state[1], prev_action] = Q[term_state[0], term_state[1], prev_action] + reward
     
     
     print("termination acheived, Reward received:", reward, '\n', 'termination state:', prev_state )
@@ -77,3 +91,9 @@ def agent_message(in_message):
     return  ""
 
     
+def predictive_novelty():
+
+    '''
+    This function will implement predictive novelty motivation as described in P.Y.Oudeye
+    '''
+    return
