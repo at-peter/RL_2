@@ -97,8 +97,12 @@ def predictive_novelty():
     This function will implement predictive novelty motivation as described in P.Y.Oudeye
     Variables needed: 
     previous estimate 
-      
+
+    CURRENT ESTIMATE: THIS WILL BE PULLED FROM THE q VALUE  
+        this value will be then passed to the sigmoid function to get   
     
     '''
     
+
+
     return

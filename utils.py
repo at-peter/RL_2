@@ -31,12 +31,13 @@ def heatmap(data, episode):
 
 def avg_reward(reward_array):
     fig = plt.figure()
-    print(len(reward_array))
+    sns.set_style('white')
+    sns.set_style('ticks')
     x_axis = range(len(reward_array))
-    print('x axis', len(x_axis))
     # plt.plot(x_axis,reward_array)
-    # sns.scatterplot(x = x_axis, y = reward_array)
-    sns.regplot(x = x_axis, y = reward_array)
+    sns.scatterplot(x = x_axis, y = reward_array)
+    sns.despine()
+    # sns.regplot(x = x_axis, y = reward_array)
     plt.title("Agent Performance")
     plt.xlabel('Episode')
     plt.ylabel('Average Reward per timestep')   
@@ -50,7 +51,7 @@ def pltshow():
 def __do_the_HeMAN_2(Q_array, episode):
     fig = plt.figure()
     Q_2d = np.mean(Q_array, axis = 2)
-    az = sns.heatmap(Q_2d, annot = True ,cmap='Greens')
+    az = sns.heatmap(Q_2d, annot = True ,cmap='coolwarm')
     prefd_action = np.argmax(Q_array, axis=-1)
     print(prefd_action.shape)
     plt.title('Agregatte state action value Heatmap:'+ str(episode))

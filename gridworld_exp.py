@@ -16,7 +16,7 @@ import utils
 
 
 max_steps = 1000
-num_episodes = 100
+num_episodes = 1000
 num_runs = 1
 avg_reward = np.zeros(num_episodes)
 for run in range(num_runs):
