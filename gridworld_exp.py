@@ -22,15 +22,14 @@ for run in range(num_runs):
     grid.env_init()
     agent.agent_init()
     print('Run:', run)
-    # TODO: 
+    # TODO: Make a way for the figures to be stored over multiple runs. 
     for episode in range(num_episodes):
-        im_diff = [] # TODO: this does not work as initialization. I think that this needs to be appened to.
+        im_diff = [] 
         is_terminal = False
         start_state = grid.env_start()
         l_action = agent.agent_start(start_state)
         num_steps = 0  
-        print('Episode:', episode) 
-        # print(l_action)
+        print('Episode:', episode)
         counter = 0
     
         while not is_terminal:
@@ -45,14 +44,10 @@ for run in range(num_runs):
             else:   
                 agent.agent_end(result['reward'])
                 break
-            # if counter is max_steps:
-            #     print('Max steps achieved')
-            # #     # TODO: For some reason this happens alot. 
-            #     break
-        if episode % 10 == 0: #TODO: This does not work 
-            utils.predictive_novelty_plot(im_diff, episode)
+
+        # if episode % 10 == 0: #TODO: This prints one in 10 graphs. 
+            # utils.predictive_novelty_plot(im_diff, episode)
         avg_reward[episode] = result['reward']/counter
-        # utils.heatmap(agent.Q, episode)
         print('number of steps: ', counter)
         # print(im_diff)
         episode += 1

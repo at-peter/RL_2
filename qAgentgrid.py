@@ -2,11 +2,11 @@ import random
 import numpy as np
 import utils 
 '''
-This is the basic q leaning agent 
-Initially I will set this random action 
+This is the basic q leaning 
+
 
 '''
-random.seed(6)
+random.seed(10)
 Q = None
 prev_state = None
 prev_action = None 
@@ -29,37 +29,36 @@ def agent_start(state):
 
 
 def agent_step(reward, state):
+    '''
+    This is the Q learning algorithm with 
+    '''
     global Q, prev_state, prev_action, alpha, gamma , epsilon
-    # update q based on previous action
-    # im_drive = predictive_novelty(state)
-    
+    # update q based on previous action  
     td_err = alpha*(reward + gamma* np.amax(Q[state[0], state[1], :]) - Q[prev_state[0],prev_state[1],prev_action])
     Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + td_err
-    
-   
-    # choose action based on policy 
+
+ 
     # epsilon greedy policy: 
     gen = random.randint(0, 100)
-    
     if gen <= (epsilon*10): 
+        # Random policy
         action = random.randint(0,3)
-        # Random policy    
-        # print("Random action", action)
+        
     else: 
-        # Action selection 
+        # MaxA Q Action selection 
         best_option = np.argwhere(Q[state[0],state[1],:] == np.amax(Q[state[0],state[1],:]))
         num_options = len(best_option)
         best_option = (random.choice(best_option))
         action = best_option[0]
-        #print("Q action", action)
+
+    # Save the state action pair for the next iteration 
     prev_action = action 
     prev_state = state 
-    
     return action 
 
 def agent_end(reward):
     global Q, prev_state, prev_action
-    term_state = [0,0] #init the terminal 
+    term_state = [0,0] #init the terminal state
     
     if prev_action == 0:
         term_state[0] = prev_state[0]
@@ -108,15 +107,17 @@ def predictive_novelty(state):
     CURRENT ESTIMATE: THIS WILL BE PULLED FROM THE q VALUE  
         this value will be then passed to the sigmoid function to get   
     '''
-
+    # Find the next best action based om the current state
     best_option = np.argwhere(Q[state[0],state[1],:] == np.amax(Q[state[0],state[1],:]))
     num_options = len(best_option)
     best_option = (random.choice(best_option))
     action = best_option[0]
     
+    #Feed the Q values to the sigmoid function. 
     prev_estimate = utils.sigmoid(Q[prev_state[0], prev_state[1], prev_action])
     this_estimate = utils.sigmoid(Q[state[0], state[1], action])
-
+    print('Prev estimate ', prev_estimate)
+    print('This estimate ', this_estimate)
     delta = this_estimate - prev_estimate
     # print('Predictive novelty:', delta)
     return delta

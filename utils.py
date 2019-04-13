@@ -13,6 +13,7 @@ Plotter:
 '''
 import seaborn as sns 
 from matplotlib import pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 import numpy as np
 sns.set()
 
@@ -47,6 +48,13 @@ def avg_reward(reward_array):
 def pltshow():
     plt.show()
     return 
+
+def savefig(pdf_name):
+    '''
+    This function saves figures to a pdf 
+    '''
+    pp = PdfPages('pdf_path')
+
 
 def __do_the_HeMAN_2(Q_array, episode):
     fig = plt.figure()
