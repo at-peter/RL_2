@@ -21,7 +21,7 @@ agent.prev_action = 2
 agent.prev_state = [9,8]
 # state = grid.env_step(1)
 agent.agent_end(1)
-
+agent.predictive_novelty([9,8])
 grid.current_state = [8,8]
 agent.prev_action = 2
 agent.prev_state = [9,8]

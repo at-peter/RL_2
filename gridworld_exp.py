@@ -15,7 +15,7 @@ import utils
 
 
 max_steps = 1000
-num_episodes = 1000
+num_episodes = 100
 num_runs = 1
 avg_reward = np.zeros(num_episodes)
 for run in range(num_runs):
@@ -24,6 +24,7 @@ for run in range(num_runs):
     print('Run:', run)
     # TODO: 
     for episode in range(num_episodes):
+        im_diff = [] # TODO: this does not work as initialization. I think that this needs to be appened to.
         is_terminal = False
         start_state = grid.env_start()
         l_action = agent.agent_start(start_state)
@@ -34,23 +35,26 @@ for run in range(num_runs):
     
         while not is_terminal:
             result = grid.env_step(l_action)
-            # print(result)
             is_terminal = result['isTerminal']
             counter += 1 
             if result['isTerminal'] is False: 
                 l_action = agent.agent_step(result['reward'], result['state'])
+                im_diff.append(10*(agent.predictive_novelty(result['state']))) 
+                
                 num_steps += 1 
-            else:
-                # agent.agent_step(result['reward'],result['state'])
+            else:   
                 agent.agent_end(result['reward'])
                 break
             # if counter is max_steps:
             #     print('Max steps achieved')
             # #     # TODO: For some reason this happens alot. 
             #     break
+        if episode % 10 == 0: #TODO: This does not work 
+            utils.predictive_novelty_plot(im_diff, episode)
         avg_reward[episode] = result['reward']/counter
         # utils.heatmap(agent.Q, episode)
         print('number of steps: ', counter)
+        # print(im_diff)
         episode += 1
     # utils.heatmap(agent.Q,run) 
     utils.__do_the_HeMAN_2(agent.Q, run)

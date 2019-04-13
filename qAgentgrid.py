@@ -1,5 +1,6 @@
 import random
-import numpy as np 
+import numpy as np
+import utils 
 '''
 This is the basic q leaning agent 
 Initially I will set this random action 
@@ -30,9 +31,11 @@ def agent_start(state):
 def agent_step(reward, state):
     global Q, prev_state, prev_action, alpha, gamma , epsilon
     # update q based on previous action
+    # im_drive = predictive_novelty(state)
+    
     td_err = alpha*(reward + gamma* np.amax(Q[state[0], state[1], :]) - Q[prev_state[0],prev_state[1],prev_action])
     Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + td_err
-    print(td_err)
+    
    
     # choose action based on policy 
     # epsilon greedy policy: 
@@ -94,8 +97,9 @@ def agent_message(in_message):
     return  ""
 
     
-def predictive_novelty():
-
+def predictive_novelty(state):
+    global Q, prev_state, prev_action
+    
     '''
     This function will implement predictive novelty motivation as described in P.Y.Oudeye
     Variables needed: 
@@ -103,7 +107,16 @@ def predictive_novelty():
 
     CURRENT ESTIMATE: THIS WILL BE PULLED FROM THE q VALUE  
         this value will be then passed to the sigmoid function to get   
-    
     '''
 
-    return
+    best_option = np.argwhere(Q[state[0],state[1],:] == np.amax(Q[state[0],state[1],:]))
+    num_options = len(best_option)
+    best_option = (random.choice(best_option))
+    action = best_option[0]
+    
+    prev_estimate = utils.sigmoid(Q[prev_state[0], prev_state[1], prev_action])
+    this_estimate = utils.sigmoid(Q[state[0], state[1], action])
+
+    delta = this_estimate - prev_estimate
+    # print('Predictive novelty:', delta)
+    return delta

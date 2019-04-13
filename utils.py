@@ -60,3 +60,11 @@ def __do_the_HeMAN_2(Q_array, episode):
     ab = sns.heatmap(prefd_action, annot = True, cmap='Blues')
     plt.title('Best action for each state')
     return
+
+def predictive_novelty_plot(diff_array, episode):
+    fig = plt.figure()
+    x_axis = range(len(diff_array))
+    sns.scatterplot(x = x_axis, y = diff_array)
+    plt.title('Predictive Novelty plot for episode' + str(episode))
+    return
+
