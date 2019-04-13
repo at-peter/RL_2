@@ -7,7 +7,6 @@ This currently is just a skeleton
 
 '''
 
-
 import qAgentgrid as agent
 import gridworld as grid
 import numpy as np 
@@ -23,9 +22,8 @@ for run in range(num_runs):
     grid.env_init()
     agent.agent_init()
     print('Run:', run)
-    
+    # TODO: 
     for episode in range(num_episodes):
-        print('.')
         is_terminal = False
         start_state = grid.env_start()
         l_action = agent.agent_start(start_state)
@@ -52,10 +50,10 @@ for run in range(num_runs):
             #     break
         avg_reward[episode] = result['reward']/counter
         # utils.heatmap(agent.Q, episode)
-        print(counter)
+        print('number of steps: ', counter)
         episode += 1
     # utils.heatmap(agent.Q,run) 
-    utils.__do_the_HeMAN_2(agent.Q,run)
+    utils.__do_the_HeMAN_2(agent.Q, run)
 # print(avg_reward)
 utils.avg_reward(avg_reward)
 utils.pltshow()

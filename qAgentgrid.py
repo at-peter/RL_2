@@ -5,7 +5,7 @@ This is the basic q leaning agent
 Initially I will set this random action 
 
 '''
-random.seed(4)
+random.seed(6)
 Q = None
 prev_state = None
 prev_action = None 
@@ -40,7 +40,7 @@ def agent_step(reward, state):
     
     if gen <= (epsilon*10): 
         action = random.randint(0,3)
-        # Random policy   
+        # Random policy    
         # print("Random action", action)
     else: 
         # Action selection 
@@ -56,9 +56,7 @@ def agent_step(reward, state):
 
 def agent_end(reward):
     global Q, prev_state, prev_action
-    term_state = [0,0]
-    td_err = alpha*(reward + gamma* np.amax(Q[prev_state[0], prev_state[1], :]))
-    Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + td_err
+    term_state = [0,0] #init the terminal 
     
     if prev_action == 0:
         term_state[0] = prev_state[0]
@@ -74,11 +72,16 @@ def agent_end(reward):
         term_state[1] = prev_state[1]
     #TODO: Need to have this line be able to accept multiple terminal states
     
-    Q[term_state[0], term_state[1], prev_action] = Q[term_state[0], term_state[1], prev_action] + reward
+    td_err = alpha*(reward + gamma* np.amax(Q[term_state[0], term_state[1], :]) - Q[prev_state[0], prev_state[1], prev_action])
+    Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + td_err
+    
+    # Update the p
+    # Q[term_state[0], term_state[1], prev_action] = Q[term_state[0], term_state[1], prev_action] + reward
+    Q[term_state[0], term_state[1], prev_action] = reward
     
     
     # print("termination acheived, Reward received:", reward, '\n', 'termination state:', prev_state )
-    # print('Q matrix:', Q)
+    #print('Q matrix:', Q)
     return 
 
 def agent_cleanup():
@@ -102,7 +105,5 @@ def predictive_novelty():
         this value will be then passed to the sigmoid function to get   
     
     '''
-    
-
 
     return

@@ -51,7 +51,7 @@ def pltshow():
 def __do_the_HeMAN_2(Q_array, episode):
     fig = plt.figure()
     Q_2d = np.mean(Q_array, axis = 2)
-    az = sns.heatmap(Q_2d, annot = True ,cmap='coolwarm')
+    az = sns.heatmap(Q_2d, annot = True ,cmap='Greens')
     prefd_action = np.argmax(Q_array, axis=-1)
     print(prefd_action.shape)
     plt.title('Agregatte state action value Heatmap:'+ str(episode))
