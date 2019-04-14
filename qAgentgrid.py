@@ -12,7 +12,7 @@ prev_state = None
 prev_action = None 
 alpha = 0.1
 gamma = 0.9
-epsilon = 0.1
+epsilon = 0.05
 
 def agent_init():
     global Q
@@ -37,7 +37,6 @@ def agent_step(reward, state):
     td_err = alpha*(reward + gamma* np.amax(Q[state[0], state[1], :]) - Q[prev_state[0],prev_state[1],prev_action])
     Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + td_err
 
- 
     # epsilon greedy policy: 
     gen = random.randint(0, 100)
     if gen <= (epsilon*10): 
@@ -112,12 +111,25 @@ def predictive_novelty(state):
     num_options = len(best_option)
     best_option = (random.choice(best_option))
     action = best_option[0]
+    diff_array = np.zeros([4])
     
+    # this finds the new values for all the states. 
+    for a in range(len(Q[state[0], state[1], :])):
+        diff_array[a] = utils.sigmoid(Q[state[0], state[1], a])
+        Q[state[0],state[1], a] =+ (diff_array[a] - 0.5)
+     
     #Feed the Q values to the sigmoid function. 
     prev_estimate = utils.sigmoid(Q[prev_state[0], prev_state[1], prev_action])
     this_estimate = utils.sigmoid(Q[state[0], state[1], action])
-    print('Prev estimate ', prev_estimate)
-    print('This estimate ', this_estimate)
-    delta = this_estimate - prev_estimate
-    # print('Predictive novelty:', delta)
+    
+    # make an array of deltas 
+    # print('Prev estimate ', prev_estimate)
+    # print('This estimate ', this_estimate)
+    # delta = this_estimate - prev_estimate
+    diff_array = diff_array - 0.5
+    #print('Predictive novelty:', diff_array)
+    delta = diff_array.max()
+
+    # lets see what happens if I add this to the Q values? 
+    
     return delta

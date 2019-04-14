@@ -30,15 +30,15 @@ def heatmap(data, episode):
     
     return 
 
-def avg_reward(reward_array):
+def avg_reward(reward_array, run):
     fig = plt.figure()
     sns.set_style('white')
     sns.set_style('ticks')
     x_axis = range(len(reward_array))
     # plt.plot(x_axis,reward_array)
-    sns.scatterplot(x = x_axis, y = reward_array)
+    # sns.scatterplot(x = x_axis, y = reward_array)
     sns.despine()
-    # sns.regplot(x = x_axis, y = reward_array)
+    sns.regplot(x = x_axis, y = reward_array)
     plt.title("Agent Performance")
     plt.xlabel('Episode')
     plt.ylabel('Average Reward per timestep')   
@@ -56,17 +56,17 @@ def savefig(pdf_name):
     pp = PdfPages('pdf_path')
 
 
-def __do_the_HeMAN_2(Q_array, episode):
+def __do_the_HeMAN_2(Q_array, run):
     fig = plt.figure()
     Q_2d = np.mean(Q_array, axis = 2)
     az = sns.heatmap(Q_2d, annot = True ,cmap='Greens')
     prefd_action = np.argmax(Q_array, axis=-1)
     print(prefd_action.shape)
-    plt.title('Agregatte state action value Heatmap:'+ str(episode))
+    plt.title('State action value Heatmap: Run '+ str(run + 1))
 
     fig2 = plt.figure()
     ab = sns.heatmap(prefd_action, annot = True, cmap='Blues')
-    plt.title('Best action for each state')
+    plt.title('Policy: Run' + str(run + 1))
     return
 
 def predictive_novelty_plot(diff_array, episode):
