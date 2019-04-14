@@ -6,7 +6,8 @@ This is the file that will be run for the gridworld experiment
 This currently is just a skeleton 
 
 '''
-
+import datetime
+import time
 import qAgentgrid as agent
 import gridworld as grid
 import numpy as np 
@@ -15,11 +16,12 @@ import utils
 
 
 max_steps = 1000
-num_episodes = 500
-num_runs = 5
+num_episodes = 8000
+num_runs = 50
 avg_reward = np.zeros(num_episodes)
 
 run_array = []
+# tstart = datetime.datetime.now().timestamp()
 
 for run in range(num_runs):
     grid.env_init()
@@ -55,15 +57,21 @@ for run in range(num_runs):
         # if episode % 10 == 0: #TODO: This prints one in 10 graphs. 
             # utils.predictive_novelty_plot(im_diff, episode)
         avg_reward[episode] = result['reward']/num_steps
-        print('\n number of steps: ', num_steps)
+        # print('\n number of steps: ', num_steps)
         # print(im_diff)
         episode += 1
     # utils.heatmap(agent.Q,run)
     # 
     # Start storing values in the run array 
     run_array.append(avg_reward) 
+    run_array_np = np.array(run_array)
     utils.__do_the_HeMAN_2(agent.Q, run)
 # print(avg_reward)
-utils.avg_reward(avg_reward, run)
-utils.pltshow()
+# utils.avg_reward(avg_reward, run)
+# utils.pltshow()
 # utils.heatmap(agent.Q)
+np.savetxt('average_reward_' + str(datetime.datetime.now().strftime("%y-%m-%d-%H-%M")) ,run_array_np, delimiter = ',')
+# t_end = datetime.datetime.now().timestamp()
+# tspent = tstart-t_end
+
+# print("Simulation time: " + str(tspent)

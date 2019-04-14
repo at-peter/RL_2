@@ -12,7 +12,7 @@ prev_state = None
 prev_action = None 
 alpha = 0.1
 gamma = 0.9
-epsilon = 0.05
+epsilon = 0
 
 def agent_init():
     global Q
@@ -116,7 +116,7 @@ def predictive_novelty(state):
     # this finds the new values for all the states. 
     for a in range(len(Q[state[0], state[1], :])):
         diff_array[a] = utils.sigmoid(Q[state[0], state[1], a])
-        Q[state[0],state[1], a] =+ (diff_array[a] - 0.5)
+        Q[state[0],state[1], a] =+ (diff_array[a] - 0.2)*5
      
     #Feed the Q values to the sigmoid function. 
     prev_estimate = utils.sigmoid(Q[prev_state[0], prev_state[1], prev_action])
