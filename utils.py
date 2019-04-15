@@ -2,6 +2,7 @@
 This is where utility functions will go 
 '''
 import math 
+import random
 
 
 def sigmoid(x):
@@ -76,3 +77,7 @@ def predictive_novelty_plot(diff_array, episode):
     plt.title('Predictive Novelty plot for episode' + str(episode))
     return
 
+
+def random_seed(seed):
+    random.seed(seed)
+    return
