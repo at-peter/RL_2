@@ -13,14 +13,17 @@ prev_state = None
 prev_action = None 
 alpha = 0.1
 gamma = 0.9
-epsilon = 0.1
+# epsilon = None
 # Drive tuneing: 
-novelty_thresh = 0.5 # This value is being subtracted from the sig Q
-novelty_coeff = 1 # this is the scale factor 
+# novelty_thresh = 0.5 # This value is being subtracted from the sig Q
+# novelty_coeff = 2 # this is the scale factor 
 
-def agent_init():
-    global Q
+def agent_init(Epsilon, Novelty_coeff, Novelty_thresh):
+    global Q, epsilon, novelty_coeff, novelty_thresh
     Q = np.zeros([10,10,4])
+    epsilon = Epsilon
+    novelty_coeff = Novelty_coeff
+    novelty_thresh = Novelty_thresh
     return 
 
 
@@ -100,7 +103,7 @@ def agent_message(in_message):
 
     
 def predictive_novelty(state):
-    global Q, prev_state, prev_action
+    global Q, prev_state, prev_action, novelty_coeff, novelty_thresh
     
     '''
     This function will implement predictive novelty motivation as described in P.Y.Oudeye
