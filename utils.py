@@ -40,7 +40,7 @@ def avg_reward(reward_array, run):
     sns.scatterplot(x = x_axis, y = reward_array)
     sns.despine()
     # sns.regplot(x = x_axis, y = reward_array)
-    plt.title("Agent Performance")
+    plt.title("Average reward of each episode in run " + str(run))
     plt.xlabel('Episode')
     plt.ylabel('Average Reward per timestep')   
     
@@ -81,3 +81,12 @@ def predictive_novelty_plot(diff_array, episode):
 def random_seed(seed):
     random.seed(seed)
     return
+
+def save_to_pdf(pdf_name):
+    import matplotlib.backends.backend_pdf as pp
+    pdf = pp.PdfPages(pdf_name + ".pdf")
+    for fig in plt.get_fignums():
+        pdf.savefig(fig)
+        plt.close()
+    pdf.close()
+   

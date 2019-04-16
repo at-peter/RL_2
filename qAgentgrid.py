@@ -13,10 +13,10 @@ prev_state = None
 prev_action = None 
 alpha = 0.1
 gamma = 0.9
-epsilon = 0
+epsilon = 0.5
 # Drive tuneing: 
 novelty_thresh = 0.5 # This value is being subtracted from the sig Q
-novelty_coeff = 2 # this is the scale factor 
+novelty_coeff = 1 # this is the scale factor 
 
 def agent_init():
     global Q
