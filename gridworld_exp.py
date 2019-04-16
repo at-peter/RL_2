@@ -17,8 +17,8 @@ import pandas as pd
 from matplotlib import pyplot as plt 
 
 max_steps = 1000
-num_episodes = 100
-num_runs = 10
+num_episodes = 8000
+num_runs = 50
 # avg_reward = np.zeros((num_episodes,max_steps))
 avg_reward = []
 run_array = []
@@ -94,7 +94,7 @@ run_frame = pd.DataFrame.from_items(run_array)
 print(run_frame.head())
 
 run_frame.plot()
-# utils.save_to_pdf('Benchmark_T05_50')
+utils.save_to_pdf('Benchmark_epsilon')
 
 
 
