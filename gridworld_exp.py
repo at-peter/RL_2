@@ -18,12 +18,13 @@ from matplotlib import pyplot as plt
 
 max_steps = 1000
 num_episodes = 8000
-num_runs = 50
+num_runs = 100
 # avg_reward = np.zeros((num_episodes,max_steps))
 avg_reward = []
 run_array = []
 # tstart = datetime.datetime.now().timestamp()
 # utils.random_seed(10)
+title = 'Benchmark_egreedy'
 for run in range(num_runs):
     # initialize all the values for each run 
     grid.env_init()
@@ -41,7 +42,7 @@ for run in range(num_runs):
         start_state = grid.env_start()
         l_action = agent.agent_start(start_state)
         step_count = 0  
-        print('Episode:', episode)
+        # print('Episode:', episode)
         average_reward_per_episode = 0 
         prev_mean_val = 0 
     
@@ -91,18 +92,18 @@ for run in range(num_runs):
     avg_reward.clear()
 
 run_frame = pd.DataFrame.from_items(run_array)
-print(run_frame.head())
+# print(run_frame.head())
 
-run_frame.plot()
-utils.save_to_pdf('Benchmark_epsilon')
+# run_frame.plot()
+# utils.save_to_pdf('Benchmark_epsilon')
+utils.save_to_pdf(title)
 
-
-
+run_frame.to_csv(title + '.csv')
 # utils.heatmap(agent.Q)
 # data = pd.DataFrame(run_array_np.T, columns = range(num_runs), index = range(num_episodes))
 # data.plot()
 # print(data.head) 
-utils.pltshow()
+# utils.pltshow()
 # # Reshape the run array: 
 
 
