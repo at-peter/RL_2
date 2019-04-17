@@ -16,7 +16,7 @@ import utils
 import pandas as pd
 from matplotlib import pyplot as plt 
 
-max_steps = 1000
+# max_steps = 500
 num_episodes = 8000
 num_runs = 30
 # avg_reward = np.zeros((num_episodes,max_steps))
@@ -24,17 +24,18 @@ avg_reward = []
 run_array = []
 # tstart = datetime.datetime.now().timestamp()
 # utils.random_seed(10)
-Epsilon = 0
+Epsilon = 1
 NovelCoeff = 1
 NovelThresh = 0 
 
-log_scale = np.logspace(1,0,num = 10)/10
-log_scale = range(1,2)
+# log_scale = np.logspace(1,0,num = 10)/10
+log_scale = range(0,500,50)
 for i in log_scale:
     NovelThresh = i 
     print(i)    
+    max_steps = i
     # title = '' + str(Epsilon) + str(NovelThresh) + str(NovelCoeff)
-    title = 'VarianceMotivationtake2'
+    title = 'Random_test' + str(i)
     for run in range(num_runs):
         # initialize all the values for each run 
         grid.env_init()
@@ -52,7 +53,7 @@ for i in log_scale:
             start_state = grid.env_start()
             l_action = agent.agent_start(start_state)
             step_count = 0  
-            print('Episode:', episode)
+            # print('Episode:', episode)
             average_reward_per_episode = 0 
             prev_mean_val = 0 
         
@@ -69,12 +70,12 @@ for i in log_scale:
                 average_reward_per_episode = (((step_count - 1)* prev_mean_val) + result['reward']) / step_count
                 
                 prev_mean_val = average_reward_per_episode
-                intrinsic_reward = 0.05*agent.variance_motivation(result['state'],l_action, step_count)
-                total_reward = result['reward'] + min(intrinsic_reward,1)
-                print('total reward' ,total_reward)
+                # intrinsic_reward = 0.05*agent.variance_motivation(result['state'],l_action, step_count)
+                # total_reward = result['reward'] + min(intrinsic_reward,1)
+                # print('total reward' ,total_reward)
                 if result['isTerminal'] is False:
                     # Step through the agent  
-                    l_action = agent.agent_step(total_reward, result['state'])
+                    l_action = agent.agent_step(result['reward'], result['state'])
                     # print('Action taken',l_action)
                     # This is where the IM section will be 
                     # im_diff.append(10*(agent.predictive_novelty(result['state']))) 
@@ -82,8 +83,11 @@ for i in log_scale:
                     
                 else:   
                     agent.agent_end(result['reward'])
-                    
-
+                    break
+                # TODO: I think this will solve my problem == 
+                if step_count == max_steps:
+                    agent.agent_end(0)
+                    break
             # if episode % 10 == 0: #TODO: This prints one in 10 graphs. 
                 # utils.predictive_novelty_plot(im_diff, episode)
             # avg_reward[episode] = average_reward_per_episode
