@@ -18,7 +18,7 @@ from matplotlib import pyplot as plt
 
 max_steps = 1000
 num_episodes = 8000
-num_runs = 100
+num_runs = 30
 # avg_reward = np.zeros((num_episodes,max_steps))
 avg_reward = []
 run_array = []
@@ -28,12 +28,13 @@ Epsilon = 0
 NovelCoeff = 1
 NovelThresh = 0 
 
-log_scale = np.logspace(1,0,num = 20)/10
-
+log_scale = np.logspace(1,0,num = 10)/10
+log_scale = range(1,2)
 for i in log_scale:
     NovelThresh = i 
     print(i)    
-    title = 'ParamSweepETC' + str(Epsilon) + str(NovelThresh) + str(NovelCoeff)
+    # title = '' + str(Epsilon) + str(NovelThresh) + str(NovelCoeff)
+    title = 'VarianceMotivationtake2'
     for run in range(num_runs):
         # initialize all the values for each run 
         grid.env_init()
@@ -46,12 +47,12 @@ for i in log_scale:
             '''
             Initialize for each episode
             '''
-            im_diff = [] 
+            im_diff = [0] 
             is_terminal = False
             start_state = grid.env_start()
             l_action = agent.agent_start(start_state)
             step_count = 0  
-            # print('Episode:', episode)
+            print('Episode:', episode)
             average_reward_per_episode = 0 
             prev_mean_val = 0 
         
@@ -67,15 +68,17 @@ for i in log_scale:
             
                 average_reward_per_episode = (((step_count - 1)* prev_mean_val) + result['reward']) / step_count
                 
-
                 prev_mean_val = average_reward_per_episode
-
+                intrinsic_reward = 0.05*agent.variance_motivation(result['state'],l_action, step_count)
+                total_reward = result['reward'] + min(intrinsic_reward,1)
+                print('total reward' ,total_reward)
                 if result['isTerminal'] is False:
                     # Step through the agent  
-                    l_action = agent.agent_step(result['reward'], result['state'])
+                    l_action = agent.agent_step(total_reward, result['state'])
+                    # print('Action taken',l_action)
                     # This is where the IM section will be 
-                    im_diff.append(10*(agent.predictive_novelty(result['state']))) 
-                    
+                    # im_diff.append(10*(agent.predictive_novelty(result['state']))) 
+                    # im_diff.append(agent.variance_motivation(result['state'],l_action, step_count))
                     
                 else:   
                     agent.agent_end(result['reward'])
@@ -97,7 +100,7 @@ for i in log_scale:
         # utils.__do_the_HeMAN_2(agent.Q, run)
         run_array.append(('run ' + str(run), avg_reward.copy())) # this preps for the dataframe 
         # this is where the average reward plots will go 
-        utils.avg_reward(avg_reward, run)
+        # utils.avg_reward(avg_reward, run)
         avg_reward.clear()
 
     run_frame = pd.DataFrame.from_items(run_array)

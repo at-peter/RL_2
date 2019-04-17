@@ -9,14 +9,15 @@ This is the basic q leaning
 # system parameters 
 # utils.random.seed(10)
 Q = None
-prev_state = None
-prev_action = None 
+prev_state = 0
+prev_action = 0 
 alpha = 0.1
 gamma = 0.9
 # epsilon = None
 # Drive tuneing: 
 # novelty_thresh = 0.5 # This value is being subtracted from the sig Q
 # novelty_coeff = 2 # this is the scale factor 
+prev_mean_val = 0
 
 def agent_init(Epsilon, Novelty_coeff, Novelty_thresh):
     global Q, epsilon, novelty_coeff, novelty_thresh
@@ -140,3 +141,10 @@ def predictive_novelty(state):
     # lets see what happens if I add this to the Q values? 
     
     return delta
+
+def variance_motivation(state, action, step_count):
+    global Q, prev_mean_val
+    average_q_per_step =  (((step_count - 1)* prev_mean_val) + Q[state[0],state[1], action]) / step_count
+    variance = np.linalg.norm(Q[state[0],state[1],action]- average_q_per_step )
+    prev_mean_val = average_q_per_step
+    return variance
