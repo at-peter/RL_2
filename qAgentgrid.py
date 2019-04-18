@@ -80,7 +80,15 @@ def agent_end(reward):
         term_state[0] = prev_state[0] - 1
         term_state[1] = prev_state[1]
     #TODO: Need to have this line be able to accept multiple terminal states
-    
+    # make the walls here 
+    if term_state[1] == -1:
+        term_state[1] = 0
+    elif term_state[0] == -1: 
+        term_state[0] = 0
+    elif term_state[1] == 10: 
+        term_state[1] = 9
+    elif term_state[0] == 10:
+        term_state[0] = 9
     td_err = alpha*(reward + gamma* np.amax(Q[term_state[0], term_state[1], :]) - Q[prev_state[0], prev_state[1], prev_action])
     Q[prev_state[0], prev_state[1], prev_action] = Q[prev_state[0], prev_state[1], prev_action] + td_err
     

@@ -26,7 +26,7 @@ def plotting_on_the_same_thing(useable_data):
     x_axis = range(8000)
     handles = []
     for i in range(0,len(useable_data)):
-        a, = plt.plot(x_axis,useable_data[i], label = 'Coefficient value :'+str(i+1))
+        a, = plt.scatter(x_axis,useable_data[i], label = 'Coefficient value :'+str(i+1))
         handles.append(a)
         # plt.yscale('log')
         plt.title('Parameter Sweep of Intermediate Novelty Coefficient Values')
@@ -96,7 +96,7 @@ if __name__ == "__main__":
     # fig = plt.figure()
     # plotting_on_the_same_thing(run_average)
 
-    # eps_baseline = average_index('.csv')
+    # eps_baseline = average_index('Benchmark_egreedy.csv')
     # ax, = plt.plot(range(len(eps_baseline)),eps_baseline,'--', label='epsilon')
     
     # plt.legend() 
@@ -118,9 +118,21 @@ if __name__ == "__main__":
     '''
     This is for treating the baseline tests: 
     '''
-    # fig = plt.figure()
-    eps_baseline = average_index('RandomAcion2.csv')
-    ax, = plt.plot(range(len(eps_baseline)),eps_baseline,'--', label='random')
+    run_average = []
+    for i in range(0,500, 50):
+        title = 'Random_test' + str(i) + '.csv'
+        avg_data = average_index(title)
+        run_average.append(avg_data)
+        print('.')
+    plotting_on_the_same_thing(run_average)
+
+
+    fig = plt.figure()
+    eps_baseline = average_index('Benchmark_egreedy.csv')
+    ax, = plt.scatter(range(len(eps_baseline)),eps_baseline,'--', label='epsilon')
+    
+    random_baseline = average_index('Random_test.csv')
+    ax, = plt.scatter(range(len(random_baseline)),random_baseline ,label ='random')
     # plt.yscale('log')
     sns.set()
     sns.set_style('white')

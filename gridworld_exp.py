@@ -16,7 +16,7 @@ import utils
 import pandas as pd
 from matplotlib import pyplot as plt 
 
-max_steps = 1000
+# max_steps = 500
 num_episodes = 8000
 num_runs = 30
 # avg_reward = np.zeros((num_episodes,max_steps))
@@ -28,11 +28,12 @@ Epsilon = 1
 NovelCoeff = 1
 NovelThresh = 0 
 
-log_scale = np.logspace(1,0,num = 10)/10
-log_scale = range(1,2)
+# log_scale = np.logspace(1,0,num = 10)/10
+log_scale = range(0,500,50)
 for i in log_scale:
     NovelThresh = i 
     print(i)    
+    max_steps = i
     # title = '' + str(Epsilon) + str(NovelThresh) + str(NovelCoeff)
     title = 'RandomAcion2'
     for run in range(num_runs):
@@ -82,8 +83,11 @@ for i in log_scale:
                     
                 else:   
                     agent.agent_end(result['reward'])
-                    
-
+                    break
+                # TODO: I think this will solve my problem == 
+                if step_count == max_steps:
+                    agent.agent_end(0)
+                    break
             # if episode % 10 == 0: #TODO: This prints one in 10 graphs. 
                 # utils.predictive_novelty_plot(im_diff, episode)
             # avg_reward[episode] = average_reward_per_episode
